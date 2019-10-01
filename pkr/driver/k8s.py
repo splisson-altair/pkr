@@ -71,8 +71,11 @@ class KubernetesPkr(Pkr):
             return conf_path.read_text()
 
         def format_image(image_name):
+            return format_image_tag(image_name, self.kard.meta['tag'])
 
-            image = '{}:{}'.format(image_name, self.kard.meta['tag'])
+        def format_image_tag(image_name, tag):
+
+            image = '{}:{}'.format(image_name, tag)
 
             if not self._get_registry():
                 return image
@@ -87,6 +90,7 @@ class KubernetesPkr(Pkr):
         data.update({
             'kard_file_content': read_kard_file,
             'format_image': format_image,
+            'format_image_tag': format_image_tag,
             'format_htpasswd': format_htpasswd,
         })
         tpl_engine = TemplateEngine(data)
