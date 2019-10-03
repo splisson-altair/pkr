@@ -98,6 +98,10 @@ class KubernetesPkr(Pkr):
         k8s_files = self.kard.env.env['driver']['k8s'].get('k8s_files', [])
 
         if k8s_files is not None:
+            component_name = self.kard.meta.get('component_name')
+            if component_name is not None:
+                k8s_files = [t.format(component_name=component_name) for t in k8s_files]
+
             for k8s_file in k8s_files:
                 path = get_pkr_path() / k8s_file
                 destFolder = self.K8S_FOLDER
