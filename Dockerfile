@@ -28,4 +28,6 @@ COPY templates $PKR_PATH/templates
 
 VOLUME $PKR_PATH/kard
 
+RUN useradd -ms /bin/bash  gitlab-runner
+
 CMD pkr
